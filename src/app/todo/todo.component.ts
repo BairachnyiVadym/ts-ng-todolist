@@ -10,6 +10,7 @@ import { TodoService } from './todo.service';
 export class TodoComponent implements OnInit {
   private todos;
   private activeTasks;
+  private newTodo;
 
   constructor(private todoService: TodoService) { }
 
@@ -17,6 +18,14 @@ export class TodoComponent implements OnInit {
     return this.todoService.get().then(todos => {
       this.todos = todos;
       this.activeTasks = this.todos.filter(todo => todo.isDone).length;
+    });
+  }
+
+  addTodo() {
+    return this.todoService.add({title: this.newTodo, isDone: false}).then(() => {
+      return this.getTodos();
+    }).then(() => {
+      this.newTodo = '';
     });
   }
 
