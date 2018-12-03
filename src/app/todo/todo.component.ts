@@ -17,7 +17,7 @@ export class TodoComponent implements OnInit {
   getTodos() {
     return this.todoService.get().then(todos => {
       this.todos = todos;
-      this.activeTasks = this.todos.filter(todo => todo.isDone).length;
+      this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
     });
   }
 
