@@ -1,33 +1,30 @@
 <section class="todoapp">
   <header class="header">
     <h1>Todo</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus>
+    <input class="new-todo" [(ngModel)] = "newTodo" (keyup.enter)="addTodo()" placeholder="What needs to be done?" autofocus>
   </header>
 
   <section class="main">
     <ul class="todo-list">
-      <li class="completed">
+      <li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone, editing: todo.editing}">
         <div class="view">
-          <input class="toggle" type="checkbox" checked>
-          <label>Install angular-cli</label>
-          <button class="destroy"></button>
+          <input class="toggle" type="checkbox" (change)="toggleComplete()" [(ngModel)]="todo.isDone">
+          <label (dblclick)="todo.editing = true">{{todo.title}}</label>
+          <button class="destroy" (click)="destroyTodo(todo)"></button>
         </div>
-        <input class="edit" value="Create a TodoMVC template">
-      </li>
-      <li>
-        <div class="view">
-          <input class="toggle" type="checkbox">
-          <label>Understand Angular2 apps</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="Rule the web">
+        <input class="edit"
+               #updatedTodo
+               [value]="todo.title"
+               (blur)="updateTodo(todo, updatedTodo.value)"
+               (keyup.escape)="todo.editing = false"
+               (keyup.enter)="updateTodo(todo, updatedTodo.value)">
       </li>
     </ul>
   </section>
 
   <footer class="footer">
 
-    <span class="todo-count"><strong>0</strong> item left</span>
+    <span class="todo-count"><strong>{{activeTasks}}</strong> item left</span>
 
     <ul class="filters">
       <li>
