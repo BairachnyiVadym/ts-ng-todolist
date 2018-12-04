@@ -43,6 +43,10 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  toggleComplete() {
+    this.getTodos();
+  }
+
   ngOnInit() {
     this.getTodos();
   }
