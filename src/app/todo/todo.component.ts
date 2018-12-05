@@ -57,4 +57,10 @@ export class TodoComponent implements OnInit {
     this.getTodos();
   }
 
+  clearCompleted() {
+    this.todoService.deleteCompleted().then(() => {
+      return this.getTodos();
+    });
+  }
+
 }
