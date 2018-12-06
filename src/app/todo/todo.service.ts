@@ -39,9 +39,9 @@ export class TodoService {
     });
   }
 
-  delete(selected) {
+  delete(id) {
     return new Promise(resolve => {
-      const index = todos.findIndex(todo => todo === selected);
+      const index = todos.findIndex(todo => todo.id === id);
       todos.splice(index, 1);
       resolve(true);
     });

@@ -2,20 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { TodoService } from './todo.service';
+import { LocalStorageService } from '../storage/local-storage.service';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css'],
-  providers: [ TodoService ]
+  providers: [ TodoService, LocalStorageService ]
 })
 export class TodoComponent implements OnInit {
   private todos;
   private activeTasks;
   private newTodo;
   private path;
+  private prevId = 0;
+  private nextId;
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) { }
+  constructor(private todoService: TodoService, private route: ActivatedRoute, private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -32,7 +35,12 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo() {
-    return this.todoService.add({title: this.newTodo, isDone: false}).then(() => {
+    this.nextId = this.prevId++;
+
+    if (this.newTodo === undefined || this.newTodo === '') { return; }
+
+    return this.todoService.add({title: this.newTodo, isDone: false, id: this.nextId}).then(() => {
+      this.localStorageService.storeOnLocalStorage(this.newTodo, this.nextId);
       return this.getTodos();
     }).then(() => {
       this.newTodo = '';
@@ -48,7 +56,8 @@ export class TodoComponent implements OnInit {
   }
 
   destroyTodo(todo) {
-    this.todoService.delete(todo).then(() => {
+    this.todoService.delete(todo.id).then(() => {
+      this.localStorageService.removeFromLocalStorage(todo.id);
       return this.getTodos();
     });
   }
