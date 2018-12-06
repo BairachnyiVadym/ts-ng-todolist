@@ -41,4 +41,8 @@ export class LocalStorageService {
 
     this.storage.set(STORAGE_KEY, currentTodoList);
   }
+
+  public deleteCompletedFromLocalStorage(data): void {
+    this.storage.set(STORAGE_KEY, data);
+  }
 }
