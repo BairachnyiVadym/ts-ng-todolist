@@ -28,7 +28,9 @@ export class TodoComponent implements OnInit {
   }
 
   getTodos(query = '') {
-    return this.todoService.get(query).then(todos => {
+    const currentTodoList = this.localStorageService.getLocalStore();
+
+    return this.todoService.get(query, currentTodoList).then(todos => {
       this.todos = todos;
       this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
     });

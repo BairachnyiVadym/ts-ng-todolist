@@ -45,4 +45,8 @@ export class LocalStorageService {
   public deleteCompletedFromLocalStorage(data): void {
     this.storage.set(STORAGE_KEY, data);
   }
+
+  public getLocalStore() {
+    return this.storage.get(STORAGE_KEY);
+  }
 }
