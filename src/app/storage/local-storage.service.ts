@@ -27,4 +27,8 @@ export class LocalStorageService {
 
     this.storage.set(STORAGE_KEY, currentTodoList);
   }
+
+  public toggleIsDoneVal(collection): void {
+    this.storage.set(STORAGE_KEY, collection);
+  }
 }

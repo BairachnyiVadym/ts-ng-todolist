@@ -64,6 +64,7 @@ export class TodoComponent implements OnInit {
 
   toggleComplete() {
     this.getTodos();
+    this.localStorageService.toggleIsDoneVal(this.todos);
   }
 
   clearCompleted() {
