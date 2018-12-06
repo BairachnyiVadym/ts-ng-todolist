@@ -31,4 +31,14 @@ export class LocalStorageService {
   public toggleIsDoneVal(collection): void {
     this.storage.set(STORAGE_KEY, collection);
   }
+
+  public updateLocalStorage(changed): void {
+    const currentTodoList = this.storage.get(STORAGE_KEY);
+
+    const index = currentTodoList.findIndex(todo => todo.id === changed.id);
+
+    currentTodoList[index].title = changed.title;
+
+    this.storage.set(STORAGE_KEY, currentTodoList);
+  }
 }

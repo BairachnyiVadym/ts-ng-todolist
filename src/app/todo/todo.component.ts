@@ -51,6 +51,7 @@ export class TodoComponent implements OnInit {
     todo.title = newValue;
     return this.todoService.put(todo).then(() => {
       todo.editing = false;
+      this.localStorageService.updateLocalStorage(todo);
       return this.getTodos();
     });
   }
