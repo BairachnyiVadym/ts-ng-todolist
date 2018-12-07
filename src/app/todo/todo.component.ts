@@ -15,7 +15,6 @@ export class TodoComponent implements OnInit {
   private activeTasks;
   private newTodo;
   private path;
-  private prevId = 0;
   private nextId;
 
   constructor(private todoService: TodoService, private route: ActivatedRoute, private localStorageService: LocalStorageService) { }
@@ -37,7 +36,7 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo() {
-    this.nextId = this.prevId++;
+    this.nextId = this.todoService.getRandomInt(0, 10000);
 
     if (this.newTodo === undefined || this.newTodo === '') { return; }
 
@@ -76,5 +75,4 @@ export class TodoComponent implements OnInit {
       return this.getTodos();
     });
   }
-
 }

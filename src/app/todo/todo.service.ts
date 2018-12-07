@@ -13,8 +13,9 @@ export class TodoService {
     return new Promise(resolve => {
       let data;
 
-      if (todos.length === 0) {
-        data = storage;
+      if (todos.length === 0 && storage !== null) {
+        todos = storage;
+        data = todos;
         resolve(data);
       }
 
@@ -56,6 +57,10 @@ export class TodoService {
       todos = todos.filter(todo => !todo.isDone);
       resolve(todos);
     });
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
 
