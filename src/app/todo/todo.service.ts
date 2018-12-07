@@ -9,9 +9,15 @@ export class TodoService {
 
   constructor() { }
 
-  get(query = '') {
+  get(query = '', storage) {
     return new Promise(resolve => {
       let data;
+
+      if (todos.length === 0 && storage !== null) {
+        todos = storage;
+        data = todos;
+        resolve(data);
+      }
 
       if (query === 'completed' || query === 'active') {
         const isCompleted = query === 'completed';
@@ -19,7 +25,6 @@ export class TodoService {
       } else {
         data = todos;
       }
-
       resolve(data);
     });
   }
@@ -39,9 +44,9 @@ export class TodoService {
     });
   }
 
-  delete(selected) {
+  delete(id) {
     return new Promise(resolve => {
-      const index = todos.findIndex(todo => todo === selected);
+      const index = todos.findIndex(todo => todo.id === id);
       todos.splice(index, 1);
       resolve(true);
     });
@@ -52,6 +57,10 @@ export class TodoService {
       todos = todos.filter(todo => !todo.isDone);
       resolve(todos);
     });
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
 
