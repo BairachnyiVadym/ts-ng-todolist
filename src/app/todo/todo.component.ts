@@ -11,10 +11,10 @@ import { LocalStorageService } from '../storage/local-storage.service';
   providers: [ TodoService, LocalStorageService ]
 })
 export class TodoComponent implements OnInit {
-  private todos;
-  private activeTasks;
-  private newTodo;
-  private path;
+  public todos;
+  public activeTasks;
+  public newTodo;
+  public path;
   private nextId;
 
   constructor(private todoService: TodoService, private route: ActivatedRoute, private localStorageService: LocalStorageService) { }
