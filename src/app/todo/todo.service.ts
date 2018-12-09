@@ -13,19 +13,16 @@ export class TodoService {
     return new Promise(resolve => {
       let data;
 
-      if (todos.length === 0 && storage !== null) {
-        todos = storage;
-        data = todos;
-        resolve(data);
-      }
+      if (todos.length === 0 && storage !== null) { todos = storage; }
 
       if (query === 'completed' || query === 'active') {
         const isCompleted = query === 'completed';
         data = todos.filter(todo => todo.isDone === isCompleted);
+        resolve(data);
       } else {
         data = todos;
+        resolve(data);
       }
-      resolve(data);
     });
   }
 

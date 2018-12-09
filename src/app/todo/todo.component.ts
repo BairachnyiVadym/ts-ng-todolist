@@ -42,7 +42,7 @@ export class TodoComponent implements OnInit {
 
     return this.todoService.add({title: this.newTodo, isDone: false, id: this.nextId}).then(() => {
       this.localStorageService.storeOnLocalStorage(this.newTodo, this.nextId);
-      return this.getTodos();
+      return this.getTodos(this.path);
     }).then(() => {
       this.newTodo = '';
     });
@@ -53,26 +53,26 @@ export class TodoComponent implements OnInit {
     return this.todoService.put(todo).then(() => {
       todo.editing = false;
       this.localStorageService.updateLocalStorage(todo);
-      return this.getTodos();
+      return this.getTodos(this.path);
     });
   }
 
   destroyTodo(todo) {
     this.todoService.delete(todo.id).then(() => {
       this.localStorageService.removeFromLocalStorage(todo.id);
-      return this.getTodos();
+      return this.getTodos(this.path);
     });
   }
 
   toggleComplete() {
-    this.getTodos();
+    this.getTodos(this.path);
     this.localStorageService.toggleIsDoneVal(this.todos);
   }
 
   clearCompleted() {
     this.todoService.deleteCompleted().then((todos) => {
       this.localStorageService.deleteCompletedFromLocalStorage(todos);
-      return this.getTodos();
+      return this.getTodos(this.path);
     });
   }
 }
