@@ -8,7 +8,10 @@
 
   <script type='text/javascript'>
     (function () {
-      document.getElementById('base-href').href += window.location.pathname.split('/')[1];
+      let query = window.location.pathname.split('/')[1];
+      if (query !== "ts-ng-todolist") {
+        document.getElementById('base-href').href = "https://bairachnyivadym.github.io/ts-ng-todolist/" + query;
+      }
     })();
   </script>
 
