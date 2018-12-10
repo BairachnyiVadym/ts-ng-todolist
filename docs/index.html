@@ -3,7 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>TsNgTodolist</title>
-  <base href="https://bairachnyivadym.github.io/ts-ng-todolist/">
+
+  <base id="base-href" href="https://bairachnyivadym.github.io/ts-ng-todolist/">
+
+  <script type='text/javascript'>
+    (function () {
+      document.getElementById('base-href').href += window.location.pathname.split('/')[1];
+    })();
+  </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
